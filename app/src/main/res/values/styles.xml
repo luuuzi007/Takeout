@@ -1,11 +1,18 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+<!--        状态栏 半透明属性-->
+<!--        <item name="android:windowTranslucentStatus">false</item>-->
+<!--        导航栏：虚拟按键-->
+<!--        <item name="android:windowTranslucentNavigation">true</item>-->
+<!--        状态栏全透明 5.0以上才支持-->
+<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
     </style>
 
 </resources>
