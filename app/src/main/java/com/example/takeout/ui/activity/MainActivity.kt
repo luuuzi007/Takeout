@@ -1,6 +1,8 @@
 package com.example.takeout.ui.activity
 
+import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,7 @@ import com.example.takeout.ui.fragment.OrderFragment
 import com.example.takeout.ui.fragment.UserFragment
 import com.example.takeout.util.DimensUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.roundToInt
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,9 +24,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 //        val ll_bootom_bar = findViewById<LinearLayout>(R.id.ll_bootom_bar)
 
-        //如果有虚拟按键则设置paddingbottom
+        //如果有虚拟按键则设置Activity的statusBar隐藏
         if (DimensUtils.checkDeviceHasNavigationBar(this)) {
-//            ll_root.setPadding(0, 0, 0, DimensUtils.getDaoHnagHeight(this))
+//            ll_root.setPadding(0, 0, 0, 50.dp2px())
 //            DimensUtils.setNavigationBar(this,View.GONE)
             DimensUtils.statusBarHide(this)
         }
@@ -76,6 +79,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+    /**
+     * 将其添加成int类中作为扩展函数
+     * dp转px
+     */
+    private fun Int.dp2px():Int{
+        //this是调用当前方法的对象，这里传this(50)，然后将50给转成float类型
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),resources.displayMetrics).toInt()
+    }
 
 }
