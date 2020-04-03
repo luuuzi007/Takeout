@@ -98,16 +98,16 @@ class HomeAdapter(val context: Context?) : RecyclerView.Adapter<RecyclerView.Vie
             if (url_maps.size == 0) {
                 url_maps.put(
                     "Hannibal",
-                    "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg"
+                    "http://a3.att.hudong.com/14/75/01300000164186121366756803686.jpg"
                 );
                 url_maps.put(
                     "Big Bang Theory",
-                    "http://tvfiles.alphacoders.com/100/hdclearart-10.png"
+                    "http://a4.att.hudong.com/21/09/01200000026352136359091694357.jpg"
                 );
-                url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
+                url_maps.put("House of Cards", "http://a0.att.hudong.com/64/76/20300001349415131407760417677.jpg")
                 url_maps.put(
                     "Game of Thrones",
-                    "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg"
+                    "http://bbs.jooyoo.net/attachment/Mon_0905/24_65548_2835f8eaa933ff6.jpg"
                 );
             }
             //map遍历
