@@ -1,7 +1,8 @@
 package com.example.takeout.ui.activity
 
-import android.content.Context
+import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,15 @@ import com.example.takeout.ui.fragment.MoreFragment
 import com.example.takeout.ui.fragment.OrderFragment
 import com.example.takeout.ui.fragment.UserFragment
 import com.example.takeout.util.DimensUtils
+import com.luuuzi.common.net.callback.ISuccess
+import com.luuuzi.common.net.client.HttpClient
+import com.trello.rxlifecycle2.android.ActivityEvent
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.math.roundToInt
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : RxAppCompatActivity() {
+    private var tag: String = javaClass.simpleName
     val fragments: ArrayList<Fragment> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,20 @@ class MainActivity : AppCompatActivity() {
         fragments.add(UserFragment())
         fragments.add(MoreFragment())
         changeIndex(0)
+        HttpClient.Builder()
+            .url("/oauth2/sys/smsLogin")
+            .params("mobile", "18576710134")
+            .params("validCode", "511514")
+            .params("loginType", "LOGIN_MOBILE")
+            .setLifecycleTransformer(bindUntilEvent<Activity>(ActivityEvent.DESTROY))
+            .params("iceAppId", "bee20191105@USER")
+            .build()
+            .post()
+            .request(object : ISuccess<Any> {
+                override fun success(t: Any) {
+                    Log.i(tag, "成功:$t")
+                }
+            })
     }
 
     private fun initBootomBar() {
@@ -79,13 +98,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     /**
      * 将其添加成int类中作为扩展函数
      * dp转px
      */
-    private fun Int.dp2px():Int{
+    private fun Int.dp2px(): Int {
         //this是调用当前方法的对象，这里传this(50)，然后将50给转成float类型
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),resources.displayMetrics).toInt()
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            resources.displayMetrics
+        ).toInt()
     }
 
 }

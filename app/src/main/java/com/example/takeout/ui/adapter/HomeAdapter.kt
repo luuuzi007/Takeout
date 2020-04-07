@@ -76,10 +76,10 @@ class HomeAdapter(val context: Context?) : RecyclerView.Adapter<RecyclerView.Vie
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val itemViewType = getItemViewType(position)
         when (itemViewType) {
-            TYPE_TITLE -> (holder as TitleItemHolder).bindData("我的头布局------------------")
+            TYPE_TITLE -> (holder as TitleItemHolder).bindData()
             TYPE_SELLER -> (holder as SellerItemHolder).bindData(mDatas[position - 1])
             else ->
-                (holder as TitleItemHolder).bindData(mDatas[position])
+                (holder as TitleItemHolder).bindData()
 
         }
     }
@@ -94,7 +94,7 @@ class HomeAdapter(val context: Context?) : RecyclerView.Adapter<RecyclerView.Vie
             slider = item.findViewById(R.id.slider)
         }
 
-        fun bindData(data: String) {
+        fun bindData() {
             if (url_maps.size == 0) {
                 url_maps.put(
                     "Hannibal",
