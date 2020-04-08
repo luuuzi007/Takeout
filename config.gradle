@@ -1,7 +1,7 @@
 ext {
     //有重用的地方写在这里面，保证代码一致
     android = [compileSdkVersion       : 28,
-               buildToolsVersion       : "28.0.0",
+               buildToolsVersion       : "28.0.3",
                minSdkVersion           : 19,
                targetSdkVersion        : 28,
                versionCode             : 1,
@@ -30,17 +30,17 @@ ext {
             "retrofit-converter-gson": "com.squareup.retrofit2:converter-gson:${android["retrofitSdkVersion"]}",
             "retrofit-adapter-rxjava": "com.squareup.retrofit2:adapter-rxjava2:${android["retrofitSdkVersion"]}",
             "converter-scalars"      : "com.squareup.retrofit2:converter-scalars:${android["retrofitSdkVersion"]}",
-            "okhttp3"                : "com.squareup.okhttp3:okhttp:3.10.0",
+            "okhttp3"                : "com.squareup.okhttp3:okhttp:3.11.0",
             "okhttp3-logging"        : "com.squareup.okhttp3:logging-interceptor:3.6.0",
             "rxlifecycle"            : "com.trello.rxlifecycle2:rxlifecycle:${android["rxlifecycleSdkVersion"]}",
             "rxlifecycle-android"    : "com.trello.rxlifecycle2:rxlifecycle-android:${android["rxlifecycleSdkVersion"]}",
             "rxlifecycle-components" : "com.trello.rxlifecycle2:rxlifecycle-components:${android["rxlifecycleSdkVersion"]}",
-            "gson"                   : "com.google.code.gson:gson:2.6.2",
+            "gson"                   : "com.google.code.gson:gson:2.8.5",
 
             //dagger2
             "dagger2"                : "com.google.dagger:dagger:${android["dagger2SdkVersion"]}",
             "dagger2-apt-compiler"   : "com.google.dagger:dagger-compiler:${android["dagger2SdkVersion"]}",
-            "rxandroid"              : "io.reactivex.rxjava2:rxandroid:2.0.2",
+            "rxandroid"              : "io.reactivex.rxjava2:rxandroid:2.1.0",
             "rxjava"                 : "io.reactivex.rxjava2:rxjava:2.1.16",
             "autolayout"             : "com.zhy:autolayout:1.4.5",
             "butterknife"            : "com.jakewharton:butterknife:8.8.1",
@@ -106,6 +106,6 @@ ext {
             "umenganalytics"         : 'com.umeng.sdk:analytics:latest.integration',//友盟统计sdk
             "multidex"               : 'com.android.support:multidex:1.0.1',//解决兼容性问题
             "test:runner"            : 'com.android.support.test:runner:1.0.2',//测试依赖，新建项目时会默认添加，一般不建议添加
-            "espresso-core"          : 'com.android.support.test.espresso:espresso-core:3.0.2',//测试依赖，新建项目时会默认添加，一般不建议添加
+//            "espresso-core"          : 'com.android.support.test.espresso:espresso-core:3.0.2',//测试依赖，新建项目时会默认添加，一般不建议添加
     ]
 }

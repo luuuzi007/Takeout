@@ -16,19 +16,21 @@ import com.orhanobut.logger.Logger
  *    date   : 2020/4/7 0007 17:21
  *    desc   :
  */
-class MainApplication: Application() {
+class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         App.init(this)
+        initThreadService()
     }
-    fun initThreadService(){
-        ThreadUtils.executeByCpu(object :ThreadUtils.SimpleTask<Void>(){
+
+    private fun initThreadService() {
+        ThreadUtils.executeByCpu(object : ThreadUtils.SimpleTask<Void>() {
             override fun doInBackground(): Void? {
                 Configurator.getInstance()
-                    .withApiHost("https://api.rhinostar.com") //外网
+                    .withApiHost("https://api.chinabeego.com") //baseurl
 //                    .withInterceptor(StethoInterceptor()) //google第三方拦截器
-                    .withInterceptor(ResponseDecryptInercept())
-                    .withNetErrorHandle(ErrorHandle::class.java) //添加错误返回处理
+//                    .withInterceptor(ResponseDecryptInercept())//自定义拦截器
+//                    .withNetErrorHandle(ErrorHandle::class.java) //添加错误返回处理
                     .configure()
                 return null
             }

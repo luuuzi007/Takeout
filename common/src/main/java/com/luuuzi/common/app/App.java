@@ -11,8 +11,9 @@ public final class App {
 
     /**
      * 初始化配置
+     *
      * @param context
-     * @return
+     * @return 保存数据的工具类
      */
     public static Configurator init(Context context) {
         Configurator.getInstance()
@@ -23,6 +24,7 @@ public final class App {
 
     /**
      * 获取配置
+     *
      * @return
      */
     public static Configurator getConfigurator() {
@@ -32,6 +34,7 @@ public final class App {
 
     /**
      * 获取某个配置信息
+     *
      * @param key
      * @param <T>
      * @return
@@ -42,6 +45,7 @@ public final class App {
 
     /**
      * 获取配置信息中全局ApplicationContext
+     *
      * @return
      */
     public static Context getApplicationContext() {
@@ -50,6 +54,7 @@ public final class App {
 
     /**
      * 获取配置信息中请求域名
+     *
      * @return
      */
     public static String getHttpHost() {
@@ -58,6 +63,7 @@ public final class App {
 
     /**
      * 获取全局handler
+     *
      * @return
      */
     public static Handler getHandler() {

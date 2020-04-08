@@ -65,11 +65,14 @@ class ResponseDecryptInercept : BaseInterceptor() {
         val buffer = source.buffer()
 
         //处理返回结果
-        //处理返回结果
         val json = buffer.clone().readString(UTF8)
-        Log.e(TAG, "json--->>:$json")
+
+        if (BuildConfig.DEBUG) {
+            MLog.e(TAG, "json--->>:$json")
+            MLog.e(rep.request().url().toString() + "&is_not_encrypt=1&is_api_test=1")
+            MLog.json(MLog.E, json)
+        }
         val data: BaseBean = Gson().fromJson<BaseBean>(json, BaseBean::class.java)
-        // 如果不是正确返回码且不是第三方绑定的验证码
         // 如果不是正确返回码且不是第三方绑定的验证码
         if (data.code !== HttpResultCode.REQUEST_SUCCESS) { //进来这里就直接抛异常 之后就不会在走下面的
 //            if (data.getCode() === HttpResultCode.TOKEN_PAST_DUE) {
@@ -80,10 +83,7 @@ class ResponseDecryptInercept : BaseInterceptor() {
 //            }
             throw ApiException(data.code, data.message)
         }
-        if (BuildConfig.DEBUG) {
-            MLog.e(rep.request().url().toString() + "&is_not_encrypt=1&is_api_test=1")
-            MLog.json(MLog.E, json)
-        }
+
         rep = rep.newBuilder()
             .body(ResponseBody.create(responseBody.contentType(), json))
             .build()

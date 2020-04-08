@@ -9,5 +9,5 @@ import com.luuuzi.common.net.client.IStatusView
  *    desc   : 可通过该接口从外面注入异常处理类
  */
 interface INetError {
-    fun setThrowable(e:Throwable,statusView:IStatusView)
+    fun setThrowable(e:Throwable,statusView:IStatusView?)
 }

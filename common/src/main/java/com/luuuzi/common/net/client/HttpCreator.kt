@@ -1,5 +1,7 @@
 package com.luuuzi.common.net.client
 
+import com.luuuzi.common.app.App
+import com.luuuzi.common.app.ConfigType
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -32,7 +34,7 @@ class RestRerviceHolder {
 
 class RetrofitHolder {
     companion object {
-        private var base_url: String = "https://api.chinabeego.com"
+        private var base_url: String = App.getHttpHost()
         var RETROFIT_CLIENT: Retrofit = Retrofit.Builder()
             .baseUrl(base_url)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -47,11 +49,12 @@ class OkHttpHolder {
         private const val CONNECT_TIMEOUT: Long = 30 //连接超时/秒
         private const val READ_TIMEOUT: Long = 15 // 读取超时/秒
         private const val WRITE_TIMEOUT: Long = 15 // 写入超时/秒
-        private var cache = Cache(File(""), 10 * 1024 * 1024)//缓存
-        private val OK_HTTP_BUILDER = OkHttpClient.Builder()
-        private val INTERCEPTORS: ArrayList<Interceptor>? = ArrayList()//拦截器
+        private var cache = Cache(File(App.getApplicationContext().getCacheDir(), "OkHttpCache"), 10 * 1024 * 1024)//缓存
 
-        private fun addInterceptor(): OkHttpClient.Builder {
+        private val OK_HTTP_BUILDER = OkHttpClient.Builder()
+        private val INTERCEPTORS: ArrayList<Interceptor>? = App.getConfiguration(ConfigType.INTERCEPTORS)//拦截器
+
+        private fun addInterceptor(): OkHttpClient.Builder {//添加拦截器
             if (INTERCEPTORS != null && INTERCEPTORS.size > 0) {
                 INTERCEPTORS.forEach {
                     OK_HTTP_BUILDER.addInterceptor(it)
@@ -64,7 +67,7 @@ class OkHttpHolder {
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-//            .cache(cache)
+            .cache(cache)
             .build()
     }
 }

@@ -6,7 +6,6 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.takeout.R
 import com.example.takeout.ui.fragment.HomeFragment
@@ -14,6 +13,9 @@ import com.example.takeout.ui.fragment.MoreFragment
 import com.example.takeout.ui.fragment.OrderFragment
 import com.example.takeout.ui.fragment.UserFragment
 import com.example.takeout.util.DimensUtils
+import com.luuuzi.common.net.bean.BaseBean
+import com.luuuzi.common.net.callback.IFailure
+import com.luuuzi.common.net.callback.IRequest
 import com.luuuzi.common.net.callback.ISuccess
 import com.luuuzi.common.net.client.HttpClient
 import com.trello.rxlifecycle2.android.ActivityEvent
@@ -42,19 +44,42 @@ class MainActivity : RxAppCompatActivity() {
         fragments.add(UserFragment())
         fragments.add(MoreFragment())
         changeIndex(0)
+
         HttpClient.Builder()
             .url("/oauth2/sys/smsLogin")
             .params("mobile", "18576710134")
-            .params("validCode", "511514")
+            .params("validCode", "079873")
             .params("loginType", "LOGIN_MOBILE")
-            .setLifecycleTransformer(bindUntilEvent<Activity>(ActivityEvent.DESTROY))
             .params("iceAppId", "bee20191105@USER")
+            .request(object : IRequest {
+                override fun onRequestStart() {//请求开始
+
+                }
+
+                override fun onRequestEnd() {//请求结束
+
+                }
+
+            })
+            .failure(object : IFailure {
+                override fun onFailure() {//请求错误
+
+                }
+            })
+            .setLifecycleTransformer(bindUntilEvent<Activity>(ActivityEvent.DESTROY))
             .build()
             .post()
-            .request(object : ISuccess<Any> {
-                override fun success(t: Any) {
-                    Log.i(tag, "成功:$t")
+//            .request(object :ISuccess<Any>{//无参数写法
+//                override fun success(t: Any) {
+//
+//                }
+//            })
+            .request(BaseBean::class.java, object : ISuccess<BaseBean> {
+                //有参数写法
+                override fun success(t: BaseBean) {
+                    Log.i(tag, "成功：${t.code} ,${t.message}")
                 }
+
             })
     }
 
@@ -110,6 +135,6 @@ class MainActivity : RxAppCompatActivity() {
             this.toFloat(),
             resources.displayMetrics
         ).toInt()
-    }
 
+    }
 }

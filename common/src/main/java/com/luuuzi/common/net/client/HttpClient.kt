@@ -136,28 +136,10 @@ class HttpClient(
         fun <T> request(clazz: Class<T>?, iSuccess: ISuccess<T>) {
             if (clazz == null) {
                 getObservable(Any::class.java)
-                    ?.subscribe(
-                        BaseObserver(
-                            CONTEXT?.get(),
-                            failure,
-                            iSuccess as ISuccess<Any>,
-                            request,
-                            statusView,
-                            error
-                        )
-                    )
+                    ?.subscribe(BaseObserver(CONTEXT?.get(), failure, iSuccess as ISuccess<Any>, request, statusView, error))
             } else {
                 getObservable(clazz)
-                    ?.subscribe(
-                        BaseObserver(
-                            CONTEXT?.get(),
-                            failure,
-                            iSuccess,
-                            request,
-                            statusView,
-                            error
-                        )
-                    )
+                    ?.subscribe(BaseObserver(CONTEXT?.get(), failure, iSuccess, request, statusView, error))
             }
         }
 

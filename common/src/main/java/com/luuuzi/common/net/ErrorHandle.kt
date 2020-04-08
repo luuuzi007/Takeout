@@ -19,18 +19,18 @@ import java.util.concurrent.TimeoutException
  *    desc   :
  */
 class ErrorHandle : INetError {
-    override fun setThrowable(e: Throwable, statusView: IStatusView) {
+    override fun setThrowable(e: Throwable, statusView: IStatusView?) {
         MLog.json(MLog.E, "出现异常:" + e.message)
         Log.i("ErrorHandle", "出现异常:" + e.message)
 
 
         if (!NetworkUtils.getInstance().isConnected) {
-            statusView.openNoNetView()
+            statusView?.openNoNetView()
             ToastUtil.showToast("没有网络")
         } else {
             if (e is TimeoutException) {
                 ToastUtil.showToast("网络请求超时")
-                statusView.openNetErrorView()
+                statusView?.openNetErrorView()
             } else if (e is JsonSyntaxException) {
                 ToastUtil.showToast("数据解析异常")
             } else if (e is UnknownHostException) {
@@ -45,7 +45,7 @@ class ErrorHandle : INetError {
                         ToastUtil.showToast("服务器异常")
                     HttpResultCode.VERIFICATION_CODE_ERROR -> ToastUtil.showToast("验证码错误")
                     HttpResultCode.NO_DATA ->  //暂无数据
-                        statusView.openDataEmptyView()
+                        statusView?.openDataEmptyView()
                     HttpResultCode.NO_FILE -> ToastUtil.showToast("没有文件")
                     HttpResultCode.NO_TASK -> ToastUtil.showToast("没有任务")
                     HttpResultCode.NO_MSG -> ToastUtil.showToast("没有信息")
@@ -81,15 +81,18 @@ class ErrorHandle : INetError {
                     HttpResultCode.ORGANIZATION_FUNCTION_LIMIT -> ToastUtil.showToast("机构功能限制")
                     HttpResultCode.ORGANIZATION_NO_STORAGE_SPACE -> ToastUtil.showToast("机构空间超出，上传文件失败")
                     else -> {
+                        Log.i("ErrorHandle","其他错误：-------》$statusView")
+
+                        statusView?.openDataEmptyView()
                     }
                 }
             } else {
                 Log.i("ErrorHandle", "请求超时错误：" + e.message)
                 if (e.message == "Failed to connect to /192.168.1.6:8083" || e.message == "Failed to connect to /api.rhinostar.com") { //服务器异常
-                    statusView.serverMaintain()
+                    statusView?.serverMaintain()
                 } else {
                     ToastUtil.showToast("请求超时")
-                    statusView.openNetErrorView()
+                    statusView?.openNetErrorView()
                 }
             }
         }

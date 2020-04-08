@@ -91,8 +91,8 @@ public class Configurator {
     final <T> T getConfiguration(Object key) {
         checkConfiguration();
         final Object value = VC_CONFIGS.get(key);
-        //异常处理类为非必须配置,可以为空
-        if (key != ConfigType.NET_ERROR_HADNLE) {
+        //异常处理类和拦截器为非必须配置,可以为空
+        if (key != ConfigType.NET_ERROR_HADNLE && key != ConfigType.INTERCEPTORS) {
             if (value == null) {
                 throw new NullPointerException(key.toString() + " IS NULL");
             }
